@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Assessment | HealthCheck 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="assessment-body">
+  <nav class="nav assessment-nav">
+    <a class="brand" href="index.html"><span class="brand-mark">+</span> HealthCheck<span>3D</span></a>
+    <a class="back-link" href="index.html">← Back to home</a>
+  </nav>
+
+  <main class="assessment">
+    <div class="assessment-head">
+      <div class="eyebrow"><span class="pulse-dot"></span> PERSONAL WELLNESS ASSESSMENT</div>
+      <h1>Your health <em>journey.</em></h1>
+      <p>Enter the information you know. You can skip optional fields.</p>
+    </div>
+
+    <div class="journey">
+      <div class="step active" data-step="1"><b>01</b><span>Basic info</span></div>
+      <div class="line"></div><div class="step" data-step="2"><b>02</b><span>Body</span></div>
+      <div class="line"></div><div class="step" data-step="3"><b>03</b><span>Indicators</span></div>
+      <div class="line"></div><div class="step" data-step="4"><b>04</b><span>Health</span></div>
+      <div class="line"></div><div class="step" data-step="5"><b>05</b><span>Lifestyle</span></div>
+    </div>
+
+    <form id="healthForm" class="health-form">
+      <section class="form-step active" data-panel="1">
+        <div class="panel-title"><span>01</span><div><h2>Let's get to know you.</h2><p>Basic information helps personalize the overview.</p></div></div>
+        <label>Full name <input id="name" type="text" placeholder="e.g. Alex Perera"></label>
+        <div class="two-inputs"><label>Age <input id="age" type="number" min="1" max="120" placeholder="25"></label>
+        <label>Gender <select id="gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></label></div>
+        <div class="form-actions"><span></span><button type="button" class="primary-btn next-btn">Continue →</button></div>
+      </section>
+
+      <section class="form-step" data-panel="2">
+        <div class="panel-title"><span>02</span><div><h2>Your body metrics.</h2><p>These values are used to calculate BMI.</p></div></div>
+        <div class="two-inputs"><label>Height <div class="unit-input"><input id="height" type="number" min="50" max="250" placeholder="170"><span>cm</span></div></label>
+        <label>Weight <div class="unit-input"><input id="weight" type="number" min="10" max="400" step="0.1" placeholder="65"><span>kg</span></div></label></div>
+        <div class="mini-info"><span>⚖</span><p>BMI is a screening measure and should be interpreted with other factors.</p></div>
+        <div class="form-actions"><button type="button" class="ghost-btn prev-btn">← Back</button><button type="button" class="primary-btn next-btn">Continue →</button></div>
+      </section>
+
+      <section class="form-step" data-panel="3">
+        <div class="panel-title"><span>03</span><div><h2>Your health indicators.</h2><p>Optional measurements. Enter values only if you know them.</p></div></div>
+        <div class="three-inputs">
+          <label>Blood sugar <div class="unit-input"><input id="sugar" type="number" step="0.1" placeholder="e.g. 95"><span>mg/dL</span></div></label>
+          <label>Systolic pressure <div class="unit-input"><input id="systolic" type="number" placeholder="120"><span>mmHg</span></div></label>
+          <label>Diastolic pressure <div class="unit-input"><input id="diastolic" type="number" placeholder="80"><span>mmHg</span></div></label>
+        </div>
+        <label>Cholesterol <div class="unit-input"><input id="cholesterol" type="number" placeholder="e.g. 180"><span>mg/dL</span></div></label>
+        <div class="form-actions"><button type="button" class="ghost-btn prev-btn">← Back</button><button type="button" class="primary-btn next-btn">Continue →</button></div>
+      </section>
+
+      <section class="form-step" data-panel="4">
+        <div class="panel-title"><span>04</span><div><h2>Health history.</h2><p>Select any conditions you currently have or have been told about.</p></div></div>
+        <div class="condition-select">
+          <label class="check-card"><input type="checkbox" name="condition" value="Diabetes"><span>◈</span><b>Diabetes</b></label>
+          <label class="check-card"><input type="checkbox" name="condition" value="High Blood Pressure"><span>⌁</span><b>High Blood Pressure</b></label>
+          <label class="check-card"><input type="checkbox" name="condition" value="High Cholesterol"><span>◇</span><b>High Cholesterol</b></label>
+          <label class="check-card"><input type="checkbox" name="condition" value="Heart Disease"><span>♥</span><b>Heart Disease</b></label>
+          <label class="check-card"><input type="checkbox" name="condition" value="Asthma"><span>◌</span><b>Asthma</b></label>
+          <label class="check-card"><input type="checkbox" name="condition" value="None"><span>✓</span><b>None of these</b></label>
+        </div>
+        <div class="form-actions"><button type="button" class="ghost-btn prev-btn">← Back</button><button type="button" class="primary-btn next-btn">Continue →</button></div>
+      </section>
+
+      <section class="form-step" data-panel="5">
+        <div class="panel-title"><span>05</span><div><h2>Your daily lifestyle.</h2><p>A few habits help make the suggestions more relevant.</p></div></div>
+        <div class="choice-group"><h3>Daily physical activity</h3><div class="choice-row">
+          <label><input type="radio" name="activity" value="low"> Less than 30 min</label><label><input type="radio" name="activity" value="moderate"> 30–60 min</label><label><input type="radio" name="activity" value="high"> More than 60 min</label>
+        </div></div>
+        <div class="choice-group"><h3>Sleep per night</h3><div class="choice-row">
+          <label><input type="radio" name="sleep" value="low"> Less than 5h</label><label><input type="radio" name="sleep" value="normal"> 5–7h</label><label><input type="radio" name="sleep" value="good"> 7–9h</label><label><input type="radio" name="sleep" value="high"> 9h+</label>
+        </div></div>
+        <div class="choice-group"><h3>Typical water intake</h3><div class="choice-row">
+          <label><input type="radio" name="water" value="low"> Less than 1L</label><label><input type="radio" name="water" value="normal"> 1–2L</label><label><input type="radio" name="water" value="high"> More than 2L</label>
+        </div></div>
+        <div class="form-actions"><button type="button" class="ghost-btn prev-btn">← Back</button><button type="submit" class="primary-btn">Analyze My Health ↗</button></div>
+      </section>
+    </form>
+    <p class="form-disclaimer">For educational purposes only. This assessment does not diagnose, treat or prevent disease.</p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

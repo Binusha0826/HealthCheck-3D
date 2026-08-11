@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Wellness Overview | HealthCheck 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="result-body">
+  <nav class="nav assessment-nav">
+    <a class="brand" href="index.html"><span class="brand-mark">+</span> HealthCheck<span>3D</span></a>
+    <a class="back-link" href="health.html">← New assessment</a>
+  </nav>
+  <main class="result-main">
+    <section class="result-head"><div><div class="eyebrow">YOUR WELLNESS OVERVIEW</div><h1 id="hello">Hello 👋</h1><p>Here is an educational snapshot based on the information you provided.</p></div><a href="index.html" class="ghost-btn">Home</a></section>
+
+    <section class="result-hero">
+      <div class="bmi-ring" id="bmiRing"><div><strong id="bmiValue">--</strong><span>BMI</span><small id="bmiLabel">Enter data</small></div></div>
+      <div class="metrics">
+        <div><span>Blood pressure</span><strong id="bpValue">Not provided</strong></div>
+        <div><span>Blood sugar</span><strong id="sugarValue">Not provided</strong></div>
+        <div><span>Cholesterol</span><strong id="cholValue">Not provided</strong></div>
+        <div><span>Activity</span><strong id="activityValue">Not provided</strong></div>
+      </div>
+    </section>
+
+    <section class="result-grid">
+      <article class="result-card"><div class="result-card-head"><span>🥗</span><div><h2>Food ideas</h2><p>General balanced-eating suggestions</p></div></div><ul id="foodList"></ul></article>
+      <article class="result-card"><div class="result-card-head"><span>🏃</span><div><h2>Exercise ideas</h2><p>Choose activities suitable for your abilities</p></div></div><ul id="exerciseList"></ul></article>
+      <article class="result-card"><div class="result-card-head"><span>✓</span><div><h2>Healthy habits</h2><p>Small actions you can repeat consistently</p></div></div><ul id="habitList"></ul></article>
+    </section>
+
+    <section class="advice-card"><div class="advice-icon">✦</div><div><h2>Your next step</h2><p id="nextStep">Build consistent healthy habits and keep track of your health indicators.</p></div></section>
+
+    <section class="medical-warning"><strong>⚠ Important medical note</strong><p>This result is an educational estimate based only on the information entered. It is <b>not a diagnosis</b> and cannot be 100% accurate. If you have symptoms, abnormal readings, existing conditions, or health concerns, please consult a qualified doctor or healthcare professional.</p></section>
+  </main>
+  <footer><div class="brand"><span class="brand-mark">+</span> HealthCheck<span>3D</span></div><p>Educational wellness experience · Not medical advice</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
