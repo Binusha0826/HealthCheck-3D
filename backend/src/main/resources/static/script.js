@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // -----------------------------
     // FORM SUBMISSION
     // -----------------------------
-
+if (form) {
     form.addEventListener("submit", async (event) => {
 
         event.preventDefault();
@@ -144,6 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         button.disabled = true;
         button.innerText = "Analyzing...";
+	
+	
 
 
         // -----------------------------
@@ -159,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
             conditions.push(checkbox.value);
 
         });
+
 
 
         // -----------------------------
@@ -334,7 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
+}
     // Show first step
     showStep(1);
 
