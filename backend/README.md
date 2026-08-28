@@ -1,33 +1,55 @@
-# HealthCheck 3D 🩺
+# 🩺 HealthCheck 3D
 
-HealthCheck 3D is an educational wellness web application designed to help users understand basic health indicators and develop healthier lifestyle habits.
+### Your Personal Wellness Guide — Understand your health. Improve your life.
 
-## 🌿 About the Project
+HealthCheck 3D is a modern wellness web application that helps users explore basic health information, assess personal health indicators, and receive general wellness recommendations through an interactive interface.
 
-HealthCheck 3D provides a simple and interactive way to explore health, nutrition, exercise, and wellness information.
+The platform combines a health assessment system, BMI analysis, lifestyle guidance, and an AI-powered wellness chatbot into one experience.
 
-Users can complete a health assessment by entering basic information such as age, gender, height, weight, blood sugar, blood pressure, cholesterol, and selected health conditions.
+> ⚠️ **Disclaimer:** HealthCheck 3D is designed for educational and informational purposes only. It does not provide medical diagnosis, treatment, or professional medical advice.
 
-The system calculates BMI and provides a personalized wellness overview based on the information provided.
-
-> **Disclaimer:** HealthCheck 3D provides educational information only and is not a medical diagnosis or a replacement for professional medical advice.
+---
 
 ## ✨ Features
 
-- 🩺 Personal health assessment
-- 📊 BMI calculation
-- 💡 Personalized wellness recommendations
-- ❤️ Basic health awareness information
-- 🥗 Nutrition guidance
-- 🏃 Exercise and activity guidance
-- 💧 Hydration and lifestyle information
-- 🤖 HealthCheck AI wellness chatbot
-- 📱 Responsive user interface
-- 🎨 Interactive 3D-inspired landing page
+### 🩺 Personal Health Assessment
+Users can enter basic health information including:
 
-## 🤖 HealthCheck AI
+- Age and gender
+- Height and weight
+- Blood sugar level
+- Blood pressure
+- Cholesterol level
+- Existing health conditions
 
-HealthCheck AI is an integrated AI wellness assistant that allows users to ask general questions about:
+### 📊 BMI Analysis
+The application calculates Body Mass Index (BMI) and provides a clear health overview.
+
+### 💡 Personalized Wellness Insights
+Based on the information provided, the system generates general wellness recommendations.
+
+### 🏃 Exercise & Lifestyle Guidance
+Explore information about:
+
+- Walking
+- Cycling
+- Stretching
+- Strength training
+- Sleep
+- Hydration
+- Healthy daily habits
+
+### 🥗 Nutrition Guidance
+Learn about balanced nutrition including:
+
+- Vegetables
+- Fruits
+- Protein
+- Whole grains
+- Hydration
+
+### 🤖 HealthCheck AI
+An integrated AI wellness assistant that can answer general questions about:
 
 - Healthy eating
 - Exercise
@@ -36,56 +58,183 @@ HealthCheck AI is an integrated AI wellness assistant that allows users to ask g
 - BMI
 - Healthy lifestyle habits
 
-The chatbot uses an AI API through the Spring Boot backend.
+### 🎨 Modern Interactive UI
+A clean, responsive, and visually engaging wellness experience with a modern 3D-inspired interface.
 
-## 🛠️ Technologies Used
+---
+
+## 🛠️ Built With
 
 ### Frontend
+
 - HTML5
 - CSS3
 - JavaScript
 
 ### Backend
-- Java
+
+- Java 17
 - Spring Boot
 - Maven
 
-### AI
-- Gemini API
+### AI Integration
 
-### Development Tools
+- Google Gemini API
+
+### Tools
+
 - Git
 - GitHub
 - VS Code
 
+---
+
 ## 📁 Project Structure
 
 ```text
-Health_Check/
+HealthCheck-3D/
 │
 ├── backend/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   └── com/
-│   │   │   │       └── healthcheck/
-│   │   │   │           ├── controller/
-│   │   │   │           ├── service/
-│   │   │   │           └── model/
-│   │   │   │
-│   │   │   └── resources/
-│   │   │       ├── static/
-│   │   │       │   ├── index.html
-│   │   │       │   ├── health.html
-│   │   │       │   ├── result.html
-│   │   │       │   ├── style.css
-│   │   │       │   ├── script.js
-│   │   │       │   └── chatbot.js
-│   │   │       │
-│   │   │       └── application.properties
-│   │   │
-│   │   └── ...
 │   │
-│   └── pom.xml
+│   ├── src/main/java/com/healthcheck/
+│   │   ├── controller/
+│   │   │   ├── HealthController.java
+│   │   │   └── ChatController.java
+│   │   │
+│   │   ├── service/
+│   │   │   ├── BmiCalculator.java
+│   │   │   ├── HealthAnalyzer.java
+│   │   │   ├── RecommendationService.java
+│   │   │   └── ChatService.java
+│   │   │
+│   │   ├── model/
+│   │   │   └── HealthData.java
+│   │   │
+│   │   └── HealthApplication.java
+│   │
+│   └── src/main/resources/
+│       ├── static/
+│       │   ├── index.html
+│       │   ├── health.html
+│       │   ├── result.html
+│       │   ├── style.css
+│       │   ├── script.js
+│       │   └── chatbot.js
+│       │
+│       └── application.properties
 │
-└── README.md
+├── README.md
+└── pom.xml
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Binusha0826/HealthCheck-3D.git
+```
+
+### 2. Navigate to the backend directory
+
+```bash
+cd HealthCheck-3D/backend
+```
+
+### 3. Configure your environment
+
+Add your Gemini API key securely using environment variables or your local configuration.
+
+> 🔐 Never commit API keys or sensitive credentials to a public repository.
+
+### 4. Run the application
+
+```bash
+mvn spring-boot:run
+```
+
+### 5. Open in your browser
+
+```text
+http://localhost:8080/
+```
+
+---
+
+## 🧠 How It Works
+
+```text
+User Input
+    ↓
+Health Assessment
+    ↓
+Spring Boot Backend
+    ↓
+BMI & Health Analysis
+    ↓
+Wellness Recommendations
+    ↓
+Personalized Health Overview
+```
+
+For AI questions:
+
+```text
+User Question
+    ↓
+HealthCheck AI
+    ↓
+Spring Boot Backend
+    ↓
+Gemini API
+    ↓
+AI Wellness Response
+```
+
+---
+
+## 🔐 Security
+
+Sensitive values such as API keys should be kept outside the public repository.
+
+Use environment variables or secure hosting platform configuration when deploying the application.
+
+Example:
+
+```properties
+GEMINI_API_KEY=your_api_key_here
+```
+
+---
+
+## 🌿 Project Vision
+
+HealthCheck 3D aims to make basic wellness information more interactive, accessible, and engaging.
+
+The project brings together:
+
+**Health Awareness · Technology · AI · Interactive Design**
+
+---
+
+## ⚠️ Medical Disclaimer
+
+HealthCheck 3D does not replace professional healthcare services.
+
+The information and recommendations provided by the application are general educational estimates and should not be used for medical diagnosis or treatment.
+
+Always consult a qualified healthcare professional for medical concerns.
+
+---
+
+<div align="center">
+
+### 🩺 HealthCheck 3D
+
+**Understand your health. Improve your life.**
+
+⭐ If you like this project, consider giving it a star!
+
+</div>
