@@ -1,5 +1,5 @@
 // ========================================
-// HealthCheck AI Chatbot
+// HealthCheck AI Chatbot - Final Version
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     chatbotButton.type = "button";
     chatbotButton.className = "ai-chat-button";
+    chatbotButton.setAttribute("aria-label", "Open HealthCheck AI");
 
     chatbotButton.innerHTML = `
         <span class="ai-icon">✦</span>
@@ -85,17 +86,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="ai-suggestions">
 
-            <button type="button"
+            <button
+                type="button"
                 data-question="What is a healthy breakfast?">
                 🥗 Healthy breakfast
             </button>
 
-            <button type="button"
+            <button
+                type="button"
                 data-question="What exercises are good for beginners?">
                 🏃 Beginner exercises
             </button>
 
-            <button type="button"
+            <button
+                type="button"
                 data-question="How can I improve my sleep?">
                 😴 Better sleep
             </button>
@@ -108,8 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <textarea
                 class="ai-input"
                 placeholder="Ask something about health..."
-                rows="1">
-            </textarea>
+                rows="1"
+                maxlength="1000"
+                aria-label="Health question"></textarea>
 
             <button
                 type="button"
@@ -206,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="message-avatar">✦</div>
 
                 <div class="message-content">
-                    <p>${formatAIResponse(text)}</p>
+                    ${formatAIResponse(text)}
                 </div>
             `;
 
@@ -215,8 +220,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         messages.appendChild(message);
 
-        messages.scrollTop =
-            messages.scrollHeight;
+        scrollToBottom();
+
+    }
+
+
+    // ==============================
+    // SCROLL TO BOTTOM
+    // ==============================
+
+    function scrollToBottom() {
+
+        messages.scrollTo({
+            top: messages.scrollHeight,
+            behavior: "smooth"
+        });
 
     }
 
@@ -239,18 +257,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 ✦
             </div>
 
-            <div class="typing-dots">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="typing-content">
+
+                <span class="typing-label">
+                    HealthCheck AI is thinking
+                </span>
+
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
             </div>
 
         `;
 
         messages.appendChild(typing);
 
-        messages.scrollTop =
-            messages.scrollHeight;
+        scrollToBottom();
 
         return typing;
 
@@ -263,6 +288,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function sendMessage(customMessage = "") {
 
+        if (sendButton.disabled) {
+            return;
+        }
+
         const message =
             customMessage ||
             input.value.trim();
@@ -273,8 +302,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // User message
+        // Limit very long messages
+        if (message.length > 1000) {
 
+            addMessage(
+                "Please keep your question under 1000 characters.",
+                "bot"
+            );
+
+            return;
+        }
+
+
+        // Add user message
         addMessage(message, "user");
 
         input.value = "";
@@ -282,12 +322,12 @@ document.addEventListener("DOMContentLoaded", () => {
         input.style.height = "auto";
 
 
-        // Typing
+        // Disable controls
+        setLoadingState(true);
 
-        const typing =
-            showTyping();
 
-        sendButton.disabled = true;
+        // Show typing
+        const typing = showTyping();
 
 
         try {
@@ -298,14 +338,17 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
+            // ==============================
+            // EXISTING BACKEND API
+            // ==============================
+
             const response =
                 await fetch("/api/chat", {
 
                     method: "POST",
 
                     headers: {
-                        "Content-Type":
-                            "application/json"
+                        "Content-Type": "application/json"
                     },
 
                     body: JSON.stringify({
@@ -337,9 +380,13 @@ document.addEventListener("DOMContentLoaded", () => {
             typing.remove();
 
 
-            addMessage(
+            const reply =
                 data.reply ||
-                "Sorry, I couldn't generate a response.",
+                "Sorry, I couldn't generate a response.";
+
+
+            addMessage(
+                reply,
                 "bot"
             );
 
@@ -356,16 +403,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             addMessage(
-                "Sorry, I'm having trouble connecting right now. Please try again.",
+                "I'm having trouble connecting to the AI right now. Please try again in a moment.",
                 "bot"
             );
 
         }
 
 
-        sendButton.disabled = false;
+        setLoadingState(false);
 
         input.focus();
+
+    }
+
+
+    // ==============================
+    // LOADING STATE
+    // ==============================
+
+    function setLoadingState(isLoading) {
+
+        sendButton.disabled =
+            isLoading;
+
+        input.disabled =
+            isLoading;
+
+
+        if (isLoading) {
+
+            sendButton.innerHTML = `
+                <span class="ai-send-loading"></span>
+            `;
+
+            sendButton.setAttribute(
+                "aria-label",
+                "AI is responding"
+            );
+
+        } else {
+
+            sendButton.innerHTML =
+                "➤";
+
+            sendButton.setAttribute(
+                "aria-label",
+                "Send message"
+            );
+
+        }
 
     }
 
@@ -413,7 +499,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "input",
         () => {
 
-            input.style.height = "auto";
+            input.style.height =
+                "auto";
 
             input.style.height =
                 Math.min(
@@ -448,6 +535,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==============================
+    // ESCAPE KEY
+    // ==============================
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape" &&
+                chatbot.classList.contains("open")
+            ) {
+
+                chatbot.classList.remove("open");
+
+            }
+
+        }
+    );
+
+
+    // ==============================
     // SECURITY
     // ==============================
 
@@ -456,7 +564,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const div =
             document.createElement("div");
 
-        div.textContent = text;
+        div.textContent =
+            text;
 
         return div.innerHTML;
 
@@ -464,7 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==============================
-    // AI RESPONSE FORMAT
+    // AI RESPONSE FORMATTER
     // ==============================
 
     function formatAIResponse(text) {
@@ -473,24 +582,119 @@ document.addEventListener("DOMContentLoaded", () => {
             escapeHtml(text);
 
 
-        safe =
-            safe.replace(
-                /\*\*(.*?)\*\*/g,
-                "<strong>$1</strong>"
-            );
+        // Remove escaped markdown backslashes
+        safe = safe.replace(
+            /\\([#*_\-])/g,
+            "$1"
+        );
 
 
-        safe =
-            safe.replace(
-                /\n/g,
-                "<br>"
-            );
+        // Headings
+        safe = safe.replace(
+            /^### (.*?)$/gm,
+            "<h4>$1</h4>"
+        );
+
+        safe = safe.replace(
+            /^## (.*?)$/gm,
+            "<h3>$1</h3>"
+        );
+
+        safe = safe.replace(
+            /^# (.*?)$/gm,
+            "<h3>$1</h3>"
+        );
+
+
+        // Bold
+        safe = safe.replace(
+            /\*\*(.*?)\*\*/g,
+            "<strong>$1</strong>"
+        );
+
+
+        // Italic
+        safe = safe.replace(
+            /(?<!\*)\*([^*\n]+)\*(?!\*)/g,
+            "<em>$1</em>"
+        );
+
+
+        // Bullet points
+        safe = safe.replace(
+            /^[\t ]*[\*\-]\s+(.*?)$/gm,
+            "<li>$1</li>"
+        );
+
+
+        // Numbered lists
+        safe = safe.replace(
+            /^\s*(\d+)\.\s+(.*?)$/gm,
+            "<li class=\"numbered-item\"><strong>$1.</strong> $2</li>"
+        );
+
+
+        // Convert consecutive bullet items into lists
+        safe = safe.replace(
+            /(<li>(?:(?!<li>).)*<\/li>(?:\s*<li>(?:(?!<li>).)*<\/li>)*)/gs,
+            "<ul>$1</ul>"
+        );
+
+
+        // Horizontal rule
+        safe = safe.replace(
+            /^-{3,}$/gm,
+            "<hr>"
+        );
+
+
+        // Line breaks
+        safe = safe.replace(
+            /\n{2,}/g,
+            "<br><br>"
+        );
+
+        safe = safe.replace(
+            /\n/g,
+            "<br>"
+        );
+
+
+        // Clean unnecessary breaks around HTML blocks
+        safe = safe.replace(
+            /<br>\s*(<h[34]>)/g,
+            "$1"
+        );
+
+        safe = safe.replace(
+            /(<\/h[34]>)\s*<br>/g,
+            "$1"
+        );
+
+        safe = safe.replace(
+            /<br>\s*(<ul>)/g,
+            "$1"
+        );
+
+        safe = safe.replace(
+            /(<\/ul>)\s*<br>/g,
+            "$1"
+        );
+
+        safe = safe.replace(
+            /<br>\s*(<hr>)/g,
+            "$1"
+        );
 
 
         return safe;
 
     }
 
+
+    // ==============================
+    // INITIAL MESSAGE
+    // ==============================
 
     console.log(
         "HealthCheck AI Chatbot loaded successfully"
